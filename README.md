@@ -62,6 +62,76 @@ This repository serves as an accelerator for teams looking to automate the deplo
 - **Multi-Environment** - Deploy to dev, staging, and production environments
 - **Monitoring** - Set up alerts and observability for Copilot SDK applications
 
+## 🔀 Git Workflow
+
+### Branching Strategy
+
+This repository follows a simplified Git workflow:
+
+- **`main`** - The primary branch containing production-ready code
+- **Feature branches** - Create from `main` for new features or updates
+- **Branch naming** - Use descriptive names: `feature/`, `fix/`, `docs/`, `refactor/`
+
+### Commit Conventions
+
+Follow these commit message guidelines:
+
+```
+<type>: <subject>
+
+<body (optional)>
+```
+
+**Types:**
+- `feat` - New feature or enhancement
+- `fix` - Bug fix
+- `docs` - Documentation changes
+- `refactor` - Code refactoring
+- `test` - Adding or updating tests
+- `chore` - Maintenance tasks
+
+**Examples:**
+```bash
+feat: Add GitHub Actions workflow for Node.js applications
+fix: Resolve Azure Pipeline authentication issue
+docs: Update Jenkins setup instructions
+```
+
+### Working with the Repository
+
+```bash
+# Clone the repository
+git clone https://github.com/microsoft/Github-Copilot-SDK-Automation-Accelerator.git
+
+# Create a new feature branch
+git checkout -b feature/your-feature-name
+
+# Stage your changes
+git add .
+
+# Commit with a descriptive message
+git commit -m "feat: Add your feature description"
+
+# Push to your branch
+git push origin feature/your-feature-name
+
+# Create a Pull Request on GitHub
+```
+
+### Keeping Your Fork Updated
+
+```bash
+# Add upstream remote
+git remote add upstream https://github.com/microsoft/Github-Copilot-SDK-Automation-Accelerator.git
+
+# Fetch upstream changes
+git fetch upstream
+
+# Merge upstream changes into your main branch
+git checkout main
+git merge upstream/main
+```
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
