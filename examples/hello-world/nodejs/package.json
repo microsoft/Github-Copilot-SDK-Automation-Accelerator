@@ -1,0 +1,11 @@
+{
+  "name": "copilot-sdk-hello-world",
+  "version": "1.0.0",
+  "description": "Minimal Copilot SDK agent example",
+  "scripts": { "start": "tsx hello-world.ts" },
+  "type": "module",
+  "dependencies": {
+    "@github/copilot-sdk": "^0.1.20",
+    "tsx": "^4.21.0"
+  }
+}

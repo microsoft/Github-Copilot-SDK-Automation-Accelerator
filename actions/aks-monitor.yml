@@ -1,0 +1,75 @@
+name: AKS Monitor Agent
+description: Run AKS cluster health monitoring and create GitHub issues for problems
+
+on:
+  workflow_call:
+    inputs:
+      language:
+        description: 'Language runtime (default: nodejs)'
+        required: false
+        type: string
+        default: 'nodejs'
+      cluster_name:
+        description: 'AKS cluster name to monitor'
+        required: false
+        type: string
+      resource_group:
+        description: 'Azure resource group'
+        required: false
+        type: string
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+      AZURE_TENANT_ID:
+        required: false
+      AZURE_SUBSCRIPTION_ID:
+        required: false
+
+  schedule:
+    - cron: '0 */6 * * *'
+
+  workflow_dispatch:
+    inputs:
+      cluster_name:
+        description: 'AKS cluster name to monitor'
+        required: false
+        type: string
+      resource_group:
+        description: 'Azure resource group'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  aks-monitor:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AKS_CLUSTER_NAME: ${{ inputs.cluster_name }}
+      AKS_RESOURCE_GROUP: ${{ inputs.resource_group }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: usecases/monitoring/nodejs
+        run: npm ci
+
+      - name: Run AKS Monitor Agent
+        working-directory: usecases/monitoring/nodejs
+        run: |
+          echo "Starting AKS Monitor Agent..."
+          echo "Cluster: ${AKS_CLUSTER_NAME:-not specified}"
+          echo "Resource Group: ${AKS_RESOURCE_GROUP:-not specified}"
+          npx tsx aks-monitor-agent.ts

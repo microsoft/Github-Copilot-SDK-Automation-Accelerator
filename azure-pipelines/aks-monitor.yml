@@ -1,0 +1,60 @@
+# Azure DevOps Pipeline - AKS Monitor Agent
+# Runs AKS cluster health monitoring and creates GitHub issues for problems
+
+parameters:
+  - name: language
+    displayName: 'Language runtime'
+    type: string
+    default: 'nodejs'
+  - name: clusterName
+    displayName: 'AKS cluster name'
+    type: string
+    default: ''
+  - name: resourceGroup
+    displayName: 'Azure resource group'
+    type: string
+    default: ''
+
+schedules:
+  - cron: '0 */6 * * *'
+    displayName: 'AKS Monitor Schedule'
+    branches:
+      include:
+        - main
+    always: true
+
+stages:
+  - stage: AKSMonitor
+    displayName: 'AKS Health Monitoring'
+    jobs:
+      - job: Monitor
+        displayName: 'Run AKS Monitor Agent'
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        steps:
+          - checkout: self
+
+          - task: NodeTool@0
+            displayName: 'Install Node.js 20'
+            inputs:
+              versionSpec: '20'
+
+          - script: |
+              cd usecases/monitoring/nodejs
+              npm ci
+            displayName: 'Install dependencies'
+
+          - script: |
+              cd usecases/monitoring/nodejs
+              echo "Starting AKS Monitor Agent..."
+              echo "Cluster: ${AKS_CLUSTER_NAME:-not specified}"
+              echo "Resource Group: ${AKS_RESOURCE_GROUP:-not specified}"
+              npx tsx aks-monitor-agent.ts
+            displayName: 'Run AKS Monitor Agent'
+            env:
+              GITHUB_TOKEN: $(GITHUB_TOKEN)
+              AZURE_TENANT_ID: $(AZURE_TENANT_ID)
+              AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
+              AKS_CLUSTER_NAME: ${{ parameters.clusterName }}
+              AKS_RESOURCE_GROUP: ${{ parameters.resourceGroup }}

@@ -1,0 +1,31 @@
+# GitLab CI - AKS Monitor Agent
+# Runs AKS cluster health monitoring
+
+include:
+  - local: 'gitlab-ci/copilot-sdk-gitlab.yml'
+
+aks-monitor:
+  extends: .copilot-sdk-agent
+  stage: deploy
+  variables:
+    USECASE: monitoring
+    LANGUAGE: nodejs
+  image: node:20-alpine
+  before_script:
+    - echo "Starting AKS Monitor Agent"
+    - echo "Cluster - ${AKS_CLUSTER_NAME:-not specified}"
+    - echo "Resource Group - ${AKS_RESOURCE_GROUP:-not specified}"
+  script:
+    - cd usecases/monitoring/nodejs
+    - npm ci
+    - npx tsx aks-monitor-agent.ts
+  rules:
+    # Scheduled run every 6 hours
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    # Manual trigger
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+    # On merge to main
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+      allow_failure: true

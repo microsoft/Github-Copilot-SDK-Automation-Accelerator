@@ -1,0 +1,11 @@
+{
+  "name": "copilot-sdk-security-analysis-nodejs",
+  "version": "1.0.0",
+  "description": "Security Analysis Agent - Copilot SDK use case",
+  "scripts": { "start": "tsx security-analysis-agent.ts" },
+  "type": "module",
+  "dependencies": {
+    "@github/copilot-sdk": "^0.1.20",
+    "tsx": "^4.21.0"
+  }
+}

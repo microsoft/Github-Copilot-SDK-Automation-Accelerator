@@ -1,0 +1,34 @@
+# Bitbucket Pipelines - AKS Monitor Agent
+# Copy this to your bitbucket-pipelines.yml
+
+image: node:20
+
+pipelines:
+  custom:
+    aks-monitor:
+      - step:
+          name: Run AKS Monitor Agent
+          caches:
+            - node
+          script:
+            - echo "Starting AKS Monitor Agent..."
+            - echo "Cluster - ${AKS_CLUSTER_NAME:-not specified}"
+            - echo "Resource Group - ${AKS_RESOURCE_GROUP:-not specified}"
+            - cd usecases/monitoring/nodejs
+            - npm ci
+            - npx tsx aks-monitor-agent.ts
+
+  schedules:
+    - schedule:
+        cron: '0 */6 * * *'
+        pipeline:
+          custom:
+            aks-monitor:
+              - step:
+                  name: Scheduled AKS Monitor
+                  caches:
+                    - node
+                  script:
+                    - cd usecases/monitoring/nodejs
+                    - npm ci
+                    - npx tsx aks-monitor-agent.ts

@@ -1,0 +1,61 @@
+# GitLab CI - Copilot SDK Agent Runner
+# Include this in your .gitlab-ci.yml to run Copilot SDK agents
+
+.copilot-sdk-agent:
+  image: node:20-alpine
+  variables:
+    USECASE: ""
+    LANGUAGE: "nodejs"
+  before_script:
+    - echo "Running Copilot SDK Agent - Use case: ${USECASE}, Language: ${LANGUAGE}"
+  script:
+    - |
+      case "$LANGUAGE" in
+        nodejs)
+          cd usecases/${USECASE}/nodejs
+          npm ci
+          npx tsx *.ts
+          ;;
+        python)
+          apk add --no-cache python3 py3-pip
+          cd usecases/${USECASE}/python
+          pip install -r requirements.txt
+          python3 *.py
+          ;;
+        go)
+          apk add --no-cache go
+          cd usecases/${USECASE}/go
+          go run .
+          ;;
+        dotnet)
+          apk add --no-cache dotnet8-sdk
+          cd usecases/${USECASE}/dotnet
+          dotnet run
+          ;;
+        *)
+          echo "Unsupported language: ${LANGUAGE}"
+          exit 1
+          ;;
+      esac
+  rules:
+    - when: manual
+      allow_failure: true
+
+# Example job definitions
+run-monitoring:
+  extends: .copilot-sdk-agent
+  variables:
+    USECASE: monitoring
+    LANGUAGE: nodejs
+
+run-code-review:
+  extends: .copilot-sdk-agent
+  variables:
+    USECASE: code-review
+    LANGUAGE: nodejs
+
+run-security-analysis:
+  extends: .copilot-sdk-agent
+  variables:
+    USECASE: security-analysis
+    LANGUAGE: nodejs

@@ -1,0 +1,61 @@
+# Bitbucket Pipelines - Copilot SDK Agent Runner
+# Copy relevant sections to your bitbucket-pipelines.yml
+
+image: node:20
+
+definitions:
+  caches:
+    npm-monitoring: usecases/monitoring/nodejs/node_modules
+    npm-code-review: usecases/code-review/nodejs/node_modules
+    npm-security: usecases/security-analysis/nodejs/node_modules
+
+  steps:
+    - step: &run-nodejs-agent
+        name: Run Node.js Copilot SDK Agent
+        caches:
+          - node
+        script:
+          - cd usecases/${USECASE}/nodejs
+          - npm ci
+          - npx tsx *.ts
+
+    - step: &run-python-agent
+        name: Run Python Copilot SDK Agent
+        image: python:3.12
+        script:
+          - cd usecases/${USECASE}/python
+          - pip install -r requirements.txt
+          - python *.py
+
+    - step: &run-go-agent
+        name: Run Go Copilot SDK Agent
+        image: golang:1.22
+        script:
+          - cd usecases/${USECASE}/go
+          - go run .
+
+pipelines:
+  custom:
+    monitoring-nodejs:
+      - variables:
+          - name: USECASE
+            default: monitoring
+      - step: *run-nodejs-agent
+
+    code-review-nodejs:
+      - variables:
+          - name: USECASE
+            default: code-review
+      - step: *run-nodejs-agent
+
+    security-analysis-nodejs:
+      - variables:
+          - name: USECASE
+            default: security-analysis
+      - step: *run-nodejs-agent
+
+    monitoring-python:
+      - variables:
+          - name: USECASE
+            default: monitoring
+      - step: *run-python-agent

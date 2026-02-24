@@ -1,0 +1,101 @@
+# Azure DevOps Pipeline - Copilot SDK Agent Runner
+# Reusable template for running Copilot SDK agents
+
+parameters:
+  - name: usecase
+    displayName: 'Use case to run'
+    type: string
+  - name: language
+    displayName: 'Language runtime'
+    type: string
+    default: 'nodejs'
+    values:
+      - nodejs
+      - python
+      - go
+      - dotnet
+  - name: nodeVersion
+    displayName: 'Node.js version'
+    type: string
+    default: '20'
+  - name: pythonVersion
+    displayName: 'Python version'
+    type: string
+    default: '3.12'
+
+stages:
+  - stage: RunAgent
+    displayName: 'Run Copilot SDK Agent'
+    jobs:
+      - job: RunAgent
+        displayName: 'Run ${{ parameters.usecase }} (${{ parameters.language }})'
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        steps:
+          - checkout: self
+
+          # --- Node.js ---
+          - task: NodeTool@0
+            condition: eq('${{ parameters.language }}', 'nodejs')
+            displayName: 'Install Node.js ${{ parameters.nodeVersion }}'
+            inputs:
+              versionSpec: '${{ parameters.nodeVersion }}'
+
+          - script: |
+              cd usecases/${{ parameters.usecase }}/nodejs
+              npm ci
+              npx tsx *.ts
+            condition: eq('${{ parameters.language }}', 'nodejs')
+            displayName: 'Run Node.js agent'
+            env:
+              GITHUB_TOKEN: $(GITHUB_TOKEN)
+              AZURE_TENANT_ID: $(AZURE_TENANT_ID)
+              AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
+
+          # --- Python ---
+          - task: UsePythonVersion@0
+            condition: eq('${{ parameters.language }}', 'python')
+            displayName: 'Install Python ${{ parameters.pythonVersion }}'
+            inputs:
+              versionSpec: '${{ parameters.pythonVersion }}'
+
+          - script: |
+              cd usecases/${{ parameters.usecase }}/python
+              python -m pip install --upgrade pip
+              pip install -r requirements.txt
+              python *.py
+            condition: eq('${{ parameters.language }}', 'python')
+            displayName: 'Run Python agent'
+            env:
+              GITHUB_TOKEN: $(GITHUB_TOKEN)
+
+          # --- Go ---
+          - task: GoTool@0
+            condition: eq('${{ parameters.language }}', 'go')
+            displayName: 'Install Go'
+            inputs:
+              version: '1.22'
+
+          - script: |
+              cd usecases/${{ parameters.usecase }}/go
+              go run .
+            condition: eq('${{ parameters.language }}', 'go')
+            displayName: 'Run Go agent'
+            env:
+              GITHUB_TOKEN: $(GITHUB_TOKEN)
+
+          # --- .NET ---
+          - task: UseDotNet@2
+            condition: eq('${{ parameters.language }}', 'dotnet')
+            displayName: 'Install .NET'
+            inputs:
+              version: '8.0.x'
+
+          - script: |
+              cd usecases/${{ parameters.usecase }}/dotnet
+              dotnet run
+            condition: eq('${{ parameters.language }}', 'dotnet')
+            displayName: 'Run .NET agent'
+            env:
+              GITHUB_TOKEN: $(GITHUB_TOKEN)

@@ -1,157 +1,273 @@
 # GitHub Copilot SDK Automation Accelerator
 
-A comprehensive collection of CI/CD pipeline templates and automation scripts for integrating the **GitHub Copilot SDK** across multiple platforms and DevOps tools.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## 🚀 Overview
+A comprehensive framework for building, running, and automating AI agents using the **GitHub Copilot SDK** across CI/CD pipelines and local development environments. Supports multiple languages (Node.js, Python, Go, .NET) and all major CI/CD platforms.
 
-This repository serves as an accelerator for teams looking to automate the deployment, testing, and integration of applications built with the [GitHub Copilot SDK](https://github.com/github/copilot-sdk). Whether you're using GitHub Actions, Azure Pipelines, Jenkins, or any other CI/CD platform, you'll find ready-to-use templates here.
-
-## 📁 Repository Structure
-
-| Folder | Description |
-|--------|-------------|
-| [`actions/`](./actions) | GitHub Actions workflows for Copilot SDK automation |
-| [`automation/`](./automation) | General-purpose automation scripts and utilities |
-| [`aws-codepipeline/`](./aws-codepipeline) | AWS CodePipeline configurations |
-| [`azure-pipelines/`](./azure-pipelines) | Azure DevOps pipeline YAML templates |
-| [`bitbucket-pipelines/`](./bitbucket-pipelines) | Bitbucket Pipelines configurations |
-| [`circleci/`](./circleci) | CircleCI workflow configurations |
-| [`gitlab-ci/`](./gitlab-ci) | GitLab CI/CD pipeline templates |
-| [`jenkins/`](./jenkins) | Jenkinsfile and Jenkins pipeline scripts |
-
-## 🎯 Features
-
-- **Multi-Platform Support** - Templates for all major CI/CD platforms
-- **Production-Ready** - Battle-tested configurations used in real deployments
-- **Customizable** - Easy to adapt to your specific requirements
-- **Best Practices** - Follows security and performance best practices
-- **Documentation** - Each folder contains detailed usage instructions
-
-## 🛠️ Getting Started
-
-### Prerequisites
-
-- GitHub Copilot SDK installed and configured
-- Access to your preferred CI/CD platform
-- Appropriate permissions to configure pipelines
-
-### Quick Start
-
-1. **Clone this repository**
-   ```bash
-   git clone https://github.com/microsoft/Github-Copilot-SDK-Automation-Accelerator.git
-   ```
-
-2. **Navigate to your platform folder**
-   ```bash
-   cd Github-Copilot-SDK-Automation-Accelerator/<your-platform>
-   ```
-
-3. **Copy templates to your project**
-   ```bash
-   cp -r ./* /path/to/your/project/
-   ```
-
-4. **Configure environment variables** as documented in each folder's README
-
-## 📋 Use Cases
-
-- **Automated Testing** - Run Copilot SDK integration tests on every commit
-- **Continuous Deployment** - Deploy Copilot-powered applications automatically
-- **Code Quality** - Integrate linting and security scans for SDK usage
-- **Multi-Environment** - Deploy to dev, staging, and production environments
-- **Monitoring** - Set up alerts and observability for Copilot SDK applications
-
-## 🔀 Git Workflow
-
-### Branching Strategy
-
-This repository follows a simplified Git workflow:
-
-- **`main`** - The primary branch containing production-ready code
-- **Feature branches** - Create from `main` for new features or updates
-- **Branch naming** - Use descriptive names: `feature/`, `fix/`, `docs/`, `refactor/`
-
-### Commit Conventions
-
-Follow these commit message guidelines:
-
-```
-<type>: <subject>
-
-<body (optional)>
-```
-
-**Types:**
-- `feat` - New feature or enhancement
-- `fix` - Bug fix
-- `docs` - Documentation changes
-- `refactor` - Code refactoring
-- `test` - Adding or updating tests
-- `chore` - Maintenance tasks
-
-**Examples:**
-```bash
-feat: Add GitHub Actions workflow for Node.js applications
-fix: Resolve Azure Pipeline authentication issue
-docs: Update Jenkins setup instructions
-```
-
-### Working with the Repository
-
-```bash
-# Clone the repository
-git clone https://github.com/microsoft/Github-Copilot-SDK-Automation-Accelerator.git
-
-# Create a new feature branch
-git checkout -b feature/your-feature-name
-
-# Stage your changes
-git add .
-
-# Commit with a descriptive message
-git commit -m "feat: Add your feature description"
-
-# Push to your branch
-git push origin feature/your-feature-name
-
-# Create a Pull Request on GitHub
-```
-
-### Keeping Your Fork Updated
-
-```bash
-# Add upstream remote
-git remote add upstream https://github.com/microsoft/Github-Copilot-SDK-Automation-Accelerator.git
-
-# Fetch upstream changes
-git fetch upstream
-
-# Merge upstream changes into your main branch
-git checkout main
-git merge upstream/main
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🔗 Resources
-
-- [GitHub Copilot SDK Documentation](https://docs.github.com/en/copilot)
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [Azure Pipelines Documentation](https://docs.microsoft.com/en-us/azure/devops/pipelines)
+> **Looking for the CLI Accelerator?** See [copilot-cli-automation-accelerator](https://github.com/neildcruz/copilot-cli-automation-accelerator)
 
 ---
 
-**Built with ❤️ by the community for the community**
+## 🚀 30-Second Quick Start
+
+**Choose your path:**
+- **☁️ CI/CD Integration** → [Jump to CI/CD setup](#️-cicd-integration)
+- **💻 Local Development** → Continue reading below
+- **📦 Use Cases** → [Browse use cases](#-use-cases)
+
+### Local Development Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/your-org/copilot-sdk-accelerator.git
+cd copilot-sdk-accelerator
+
+# Run the AKS Monitor agent (Node.js)
+cd usecases/monitoring/nodejs
+npm install
+npx tsx aks-monitor-agent.ts
+
+# Or use the CLI runner from the root
+./automation/copilot-sdk-runner.sh --usecase monitoring --lang nodejs
+```
+
+**Prerequisites:** Node.js 20+, GitHub authentication (`gh auth login` or `GITHUB_TOKEN` env var)
+
+---
+
+## 📋 What Can I Do?
+
+| Goal | Command |
+|------|---------|
+| **AKS Monitoring** | `./automation/copilot-sdk-runner.sh --usecase monitoring --lang nodejs` |
+| **Code Review Agent** | `./automation/copilot-sdk-runner.sh --usecase code-review --lang nodejs` |
+| **Security Analysis** | `./automation/copilot-sdk-runner.sh --usecase security-analysis --lang python` |
+| **List Use Cases** | `./automation/copilot-sdk-runner.sh --list` |
+| **Run Any Agent** | `./automation/copilot-sdk-runner.sh --usecase <name> --lang <language>` |
+| **Initialize Config** | `./automation/copilot-sdk-runner.sh --init` |
+| **System Diagnostics** | `./automation/copilot-sdk-runner.sh --diagnose` |
+
+---
+
+<details>
+<summary><strong>📁 Project Structure</strong> (click to expand)</summary>
+
+```
+copilot-sdk-accelerator/
+├── README.md                          # This file - start here
+├── INDEX.md                           # Navigation guide
+├── INSTALL.md                         # Installation details
+├── CONTRIBUTING.md                    # Contributing guide
+├── CHANGELOG.md                       # Version history
+├── LICENSE                            # MIT License
+│
+├── automation/                        # SDK runner scripts & configuration
+│   ├── copilot-sdk-runner.sh          # Bash runner (Linux/macOS)
+│   ├── copilot-sdk.properties         # Default configuration
+│   ├── README.md                      # Automation documentation
+│   └── examples/                      # Example agent configurations
+│       ├── mcp-config.json
+│       └── README.md
+│
+├── actions/                           # GitHub Actions workflows
+│   ├── copilot-sdk-action.yml         # Reusable workflow
+│   ├── aks-monitor.yml                # AKS monitoring workflow
+│   └── README.md
+│
+├── azure-pipelines/                   # Azure DevOps Pipelines
+│   ├── copilot-sdk-azure.yml          # Reusable template
+│   ├── aks-monitor.yml                # AKS monitoring pipeline
+│   └── README.md
+│
+├── gitlab-ci/                         # GitLab CI/CD
+│   ├── copilot-sdk-gitlab.yml         # Reusable template
+│   ├── aks-monitor.yml                # AKS monitoring job
+│   └── README.md
+│
+├── bitbucket-pipelines/               # Bitbucket Pipelines
+│   ├── copilot-sdk-bitbucket.yml      # Reusable template
+│   ├── aks-monitor.yml                # AKS monitoring pipeline
+│   └── README.md
+│
+├── circleci/                          # CircleCI
+│   ├── copilot-sdk-circleci.yml       # Reusable config
+│   ├── aks-monitor.yml                # AKS monitoring job
+│   └── README.md
+│
+├── sdk/                               # SDK helpers & utilities (per language)
+│   ├── README.md
+│   ├── nodejs/                        # Node.js SDK utilities
+│   ├── python/                        # Python SDK utilities
+│   ├── go/                            # Go SDK utilities
+│   └── dotnet/                        # .NET SDK utilities
+│
+├── usecases/                          # Use-case specific agents
+│   ├── README.md
+│   ├── monitoring/                    # Cloud/AKS monitoring
+│   │   ├── nodejs/                    # ★ AKS Monitor Agent (primary)
+│   │   ├── python/
+│   │   ├── go/
+│   │   └── dotnet/
+│   ├── code-review/                   # AI-powered code review
+│   │   ├── nodejs/
+│   │   ├── python/
+│   │   ├── go/
+│   │   └── dotnet/
+│   └── security-analysis/             # Security scanning
+│       ├── nodejs/
+│       ├── python/
+│       ├── go/
+│       └── dotnet/
+│
+├── examples/                          # Getting started examples
+│   ├── README.md
+│   ├── hello-world/
+│   └── weather-assistant/
+│
+└── docs/                              # Additional documentation
+    ├── architecture.md
+    ├── custom-agents.md
+    └── mcp-integration.md
+```
+
+</details>
+
+---
+
+## ☁️ CI/CD Integration
+
+<details>
+<summary><strong>GitHub Actions</strong></summary>
+
+```yaml
+# .github/workflows/aks-monitor.yml
+name: AKS Monitoring
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+jobs:
+  monitor:
+    uses: ./.github/workflows/copilot-sdk-action.yml
+    with:
+      usecase: monitoring
+      language: nodejs
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+See [actions/README.md](actions/README.md) for full documentation.
+
+</details>
+
+<details>
+<summary><strong>Azure DevOps Pipelines</strong></summary>
+
+```yaml
+trigger: none
+schedules:
+  - cron: '0 */6 * * *'
+    displayName: 'AKS Monitor Schedule'
+stages:
+  - template: azure-pipelines/aks-monitor.yml
+    parameters:
+      language: nodejs
+```
+
+See [azure-pipelines/README.md](azure-pipelines/README.md) for full documentation.
+
+</details>
+
+<details>
+<summary><strong>GitLab CI</strong></summary>
+
+```yaml
+include:
+  - local: 'gitlab-ci/aks-monitor.yml'
+```
+
+See [gitlab-ci/README.md](gitlab-ci/README.md) for full documentation.
+
+</details>
+
+<details>
+<summary><strong>Bitbucket Pipelines</strong></summary>
+
+```yaml
+pipelines:
+  custom:
+    aks-monitor:
+      - step:
+          name: Run AKS Monitor Agent
+          script:
+            - ./automation/copilot-sdk-runner.sh --usecase monitoring --lang nodejs
+```
+
+See [bitbucket-pipelines/README.md](bitbucket-pipelines/README.md) for full documentation.
+
+</details>
+
+<details>
+<summary><strong>CircleCI</strong></summary>
+
+```yaml
+version: 2.1
+workflows:
+  aks-monitor:
+    jobs:
+      - run-copilot-sdk-agent:
+          usecase: monitoring
+          language: nodejs
+```
+
+See [circleci/README.md](circleci/README.md) for full documentation.
+
+</details>
+
+---
+
+## 📦 Use Cases
+
+| Use Case | Description | Languages |
+|----------|-------------|-----------|
+| **[Monitoring](usecases/monitoring/)** | AKS cluster health monitoring, diagnostics, auto-issue creation | Node.js, Python, Go, .NET |
+| **[Code Review](usecases/code-review/)** | AI-powered code review with Copilot SDK | Node.js, Python, Go, .NET |
+| **[Security Analysis](usecases/security-analysis/)** | Automated security vulnerability scanning | Node.js, Python, Go, .NET |
+
+---
+
+## 🔧 Key Features
+
+- **Multi-Language Support** — Node.js, Python, Go, .NET starter templates
+- **CI/CD Ready** — GitHub Actions, Azure Pipelines, GitLab CI, Bitbucket, CircleCI
+- **MCP Integration** — Azure, AKS, GitHub MCP server support built-in
+- **CLI Runner** — Unified runner script for all use cases
+- **Modular Architecture** — Each use case is self-contained with its own dependencies
+- **Production Patterns** — Auth handling, error management, logging, diagnostics
+
+---
+
+## 📖 Documentation
+
+| Component | Documentation |
+|-----------|---------------|
+| **Getting Started** | [INSTALL.md](INSTALL.md) |
+| **Navigation Guide** | [INDEX.md](INDEX.md) |
+| **Architecture** | [docs/architecture.md](docs/architecture.md) |
+| **Custom Agents** | [docs/custom-agents.md](docs/custom-agents.md) |
+| **MCP Integration** | [docs/mcp-integration.md](docs/mcp-integration.md) |
+| **CI/CD Platforms** | [actions/](actions/), [azure-pipelines/](azure-pipelines/), [gitlab-ci/](gitlab-ci/), [bitbucket-pipelines/](bitbucket-pipelines/), [circleci/](circleci/) |
+| **SDK Utilities** | [sdk/README.md](sdk/README.md) |
+| **Use Cases** | [usecases/README.md](usecases/README.md) |
+| **Examples** | [examples/README.md](examples/README.md) |
+| **Contributing** | [CONTRIBUTING.md](CONTRIBUTING.md) |
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## 📄 License
+
+[MIT](LICENSE)

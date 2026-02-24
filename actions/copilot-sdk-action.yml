@@ -1,0 +1,129 @@
+name: Copilot SDK Agent Runner
+description: Reusable workflow for running Copilot SDK agents
+
+on:
+  workflow_call:
+    inputs:
+      usecase:
+        description: 'Use case to run (e.g., monitoring, code-review, security-analysis)'
+        required: true
+        type: string
+      language:
+        description: 'Language runtime (nodejs, python, go, dotnet)'
+        required: true
+        type: string
+        default: 'nodejs'
+      prompt:
+        description: 'Optional prompt to pass to the agent'
+        required: false
+        type: string
+        default: ''
+      node_version:
+        description: 'Node.js version for nodejs agents'
+        required: false
+        type: string
+        default: '20'
+      python_version:
+        description: 'Python version for python agents'
+        required: false
+        type: string
+        default: '3.12'
+      go_version:
+        description: 'Go version for go agents'
+        required: false
+        type: string
+        default: '1.22'
+      dotnet_version:
+        description: '.NET version for dotnet agents'
+        required: false
+        type: string
+        default: '8.0'
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+      AZURE_TENANT_ID:
+        required: false
+      AZURE_SUBSCRIPTION_ID:
+        required: false
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --- Node.js Setup ---
+      - name: Setup Node.js
+        if: inputs.language == 'nodejs'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node_version }}
+
+      - name: Install Node.js dependencies
+        if: inputs.language == 'nodejs'
+        working-directory: usecases/${{ inputs.usecase }}/nodejs
+        run: npm ci
+
+      - name: Run Node.js agent
+        if: inputs.language == 'nodejs'
+        working-directory: usecases/${{ inputs.usecase }}/nodejs
+        run: |
+          if [ -n "${{ inputs.prompt }}" ]; then
+            echo "${{ inputs.prompt }}" | npx tsx *.ts
+          else
+            npx tsx *.ts
+          fi
+
+      # --- Python Setup ---
+      - name: Setup Python
+        if: inputs.language == 'python'
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python_version }}
+
+      - name: Install Python dependencies
+        if: inputs.language == 'python'
+        working-directory: usecases/${{ inputs.usecase }}/python
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Python agent
+        if: inputs.language == 'python'
+        working-directory: usecases/${{ inputs.usecase }}/python
+        run: python *.py
+
+      # --- Go Setup ---
+      - name: Setup Go
+        if: inputs.language == 'go'
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ inputs.go_version }}
+
+      - name: Run Go agent
+        if: inputs.language == 'go'
+        working-directory: usecases/${{ inputs.usecase }}/go
+        run: go run .
+
+      # --- .NET Setup ---
+      - name: Setup .NET
+        if: inputs.language == 'dotnet'
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ inputs.dotnet_version }}
+
+      - name: Run .NET agent
+        if: inputs.language == 'dotnet'
+        working-directory: usecases/${{ inputs.usecase }}/dotnet
+        run: dotnet run

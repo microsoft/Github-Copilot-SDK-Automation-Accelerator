@@ -1,0 +1,27 @@
+{
+  "name": "copilot-sdk-demo",
+  "version": "1.0.0",
+  "description": "Interactive agents built with GitHub Copilot SDK",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "weather": "tsx weather-assistant.ts",
+    "aks-monitor": "tsx aks-monitor-agent.ts",
+    "start": "tsx index.ts"
+  },
+  "keywords": [
+    "copilot",
+    "ai",
+    "agent",
+    "aks",
+    "kubernetes",
+    "azure"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@github/copilot-sdk": "^0.1.20",
+    "tsx": "^4.21.0"
+  }
+}

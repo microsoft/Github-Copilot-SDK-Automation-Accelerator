@@ -1,0 +1,44 @@
+# CircleCI - AKS Monitor Agent
+# Include or copy to your .circleci/config.yml
+
+version: 2.1
+
+orbs:
+  node: circleci/node@5.2
+
+jobs:
+  aks-monitor:
+    docker:
+      - image: cimg/node:20.0
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: cd usecases/monitoring/nodejs && npm ci
+      - run:
+          name: Run AKS Monitor Agent
+          command: |
+            echo "Starting AKS Monitor Agent..."
+            echo "Cluster: ${AKS_CLUSTER_NAME:-not specified}"
+            echo "Resource Group: ${AKS_RESOURCE_GROUP:-not specified}"
+            cd usecases/monitoring/nodejs && npx tsx aks-monitor-agent.ts
+
+workflows:
+  aks-monitoring:
+    triggers:
+      - schedule:
+          cron: '0 */6 * * *'
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - aks-monitor
+
+  manual-monitoring:
+    jobs:
+      - aks-monitor:
+          filters:
+            branches:
+              only:
+                - main

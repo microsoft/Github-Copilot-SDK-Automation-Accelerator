@@ -1,0 +1,96 @@
+# CircleCI - Copilot SDK Agent Runner
+# Include or copy relevant sections to your .circleci/config.yml
+
+version: 2.1
+
+orbs:
+  node: circleci/node@5.2
+
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:20.0
+  python-executor:
+    docker:
+      - image: cimg/python:3.12
+  go-executor:
+    docker:
+      - image: cimg/go:1.22
+  dotnet-executor:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:8.0
+
+commands:
+  run-nodejs-agent:
+    parameters:
+      usecase:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: cd usecases/<< parameters.usecase >>/nodejs && npm ci
+      - run:
+          name: Run Node.js agent
+          command: cd usecases/<< parameters.usecase >>/nodejs && npx tsx *.ts
+
+  run-python-agent:
+    parameters:
+      usecase:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            cd usecases/<< parameters.usecase >>/python
+            pip install -r requirements.txt
+      - run:
+          name: Run Python agent
+          command: cd usecases/<< parameters.usecase >>/python && python *.py
+
+  run-go-agent:
+    parameters:
+      usecase:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Run Go agent
+          command: cd usecases/<< parameters.usecase >>/go && go run .
+
+jobs:
+  run-copilot-sdk-agent:
+    parameters:
+      usecase:
+        type: string
+      language:
+        type: string
+        default: nodejs
+    executor: << parameters.language >>-executor
+    steps:
+      - when:
+          condition:
+            equal: [nodejs, << parameters.language >>]
+          steps:
+            - run-nodejs-agent:
+                usecase: << parameters.usecase >>
+      - when:
+          condition:
+            equal: [python, << parameters.language >>]
+          steps:
+            - run-python-agent:
+                usecase: << parameters.usecase >>
+      - when:
+          condition:
+            equal: [go, << parameters.language >>]
+          steps:
+            - run-go-agent:
+                usecase: << parameters.usecase >>
+
+workflows:
+  run-agents:
+    jobs:
+      - run-copilot-sdk-agent:
+          usecase: monitoring
+          language: nodejs

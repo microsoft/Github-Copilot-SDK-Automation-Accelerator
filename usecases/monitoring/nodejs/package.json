@@ -1,0 +1,14 @@
+{
+  "name": "copilot-sdk-monitoring-nodejs",
+  "version": "1.0.0",
+  "description": "AKS Monitor Agent - Copilot SDK use case for AKS cluster health monitoring",
+  "scripts": {
+    "start": "tsx aks-monitor-agent.ts",
+    "dev": "tsx watch aks-monitor-agent.ts"
+  },
+  "type": "module",
+  "dependencies": {
+    "@github/copilot-sdk": "^0.1.20",
+    "tsx": "^4.21.0"
+  }
+}

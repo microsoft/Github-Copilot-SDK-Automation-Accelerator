@@ -1,0 +1,2 @@
+# AKS Monitor Agent - Python
+# Starter template

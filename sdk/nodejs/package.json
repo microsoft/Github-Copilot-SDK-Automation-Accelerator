@@ -1,0 +1,11 @@
+{
+  "name": "copilot-sdk-helpers-nodejs",
+  "version": "1.0.0",
+  "description": "Reusable helpers for GitHub Copilot SDK agent development",
+  "main": "src/agent-factory.ts",
+  "type": "module",
+  "dependencies": {
+    "@github/copilot-sdk": "^0.1.20",
+    "tsx": "^4.21.0"
+  }
+}

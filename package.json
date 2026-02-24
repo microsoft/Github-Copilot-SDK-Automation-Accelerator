@@ -1,0 +1,35 @@
+{
+  "name": "copilot-sdk-accelerator",
+  "version": "1.0.0",
+  "description": "GitHub Copilot SDK Automation Accelerator - Build and run AI agents across CI/CD pipelines",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Run tests for individual usecases in their respective folders\"",
+    "lint": "echo \"No root linting configured - lint per usecase\"",
+    "runner": "bash ./automation/copilot-sdk-runner.sh",
+    "usecase:monitoring": "cd usecases/monitoring/nodejs && npm install && npx tsx aks-monitor-agent.ts",
+    "usecase:code-review": "cd usecases/code-review/nodejs && npm install && npx tsx code-review-agent.ts",
+    "usecase:security": "cd usecases/security-analysis/nodejs && npm install && npx tsx security-analysis-agent.ts",
+    "example:hello": "cd examples/hello-world/nodejs && npm install && npx tsx hello-world.ts",
+    "example:weather": "cd examples/weather-assistant/nodejs && npm install && npx tsx weather-assistant.ts"
+  },
+  "keywords": [
+    "copilot",
+    "copilot-sdk",
+    "github",
+    "ai-agent",
+    "aks",
+    "kubernetes",
+    "azure",
+    "mcp",
+    "automation",
+    "cicd",
+    "accelerator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/copilot-sdk-accelerator.git"
+  }
+}

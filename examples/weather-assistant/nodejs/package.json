@@ -1,0 +1,11 @@
+{
+  "name": "copilot-sdk-weather-assistant",
+  "version": "1.0.0",
+  "description": "Weather assistant example with Copilot SDK tool calling",
+  "scripts": { "start": "tsx weather-assistant.ts" },
+  "type": "module",
+  "dependencies": {
+    "@github/copilot-sdk": "^0.1.20",
+    "tsx": "^4.21.0"
+  }
+}

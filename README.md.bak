@@ -1,0 +1,272 @@
+# GitHub Copilot SDK - AKS Monitor Agent
+
+> **An intelligent AI agent that monitors Azure Kubernetes Service clusters and reports issues to GitHub**
+
+Built with the [GitHub Copilot SDK](https://github.com/github/copilot-sdk), this project demonstrates how to create production-ready AI agents that integrate with multiple systems using Model Context Protocol (MCP) servers.
+
+## 🌟 Highlights
+
+- 🤖 **AI-Powered**: Uses GitHub Copilot SDK with GPT-4o
+- 🔗 **Multi-System Integration**: GitHub + Azure + AKS via MCP servers
+- 💬 **Interactive**: Conversational interface with step-by-step guidance
+- 🔍 **Comprehensive**: Monitors nodes, pods, services, and resources
+- 📝 **Automated**: Creates detailed GitHub issues automatically
+- 🎯 **Production-Ready**: Error handling, state management, and user confirmations
+
+## 🚀 Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Run the AKS Monitor Agent (no additional setup needed!)
+npm run aks-monitor
+```
+
+Then follow the interactive prompts to:
+1. Authenticate with Azure (tenant ID, subscription ID)
+2. Connect to your AKS cluster (cluster name, resource group)
+3. Run diagnostics and review findings
+4. Create GitHub issues for problems found
+
+## 📚 Documentation
+
+| Document | Purpose |
+|----------|---------|
+| [PROJECT-SUMMARY.md](PROJECT-SUMMARY.md) | Complete project overview and architecture |
+| [SETUP-GUIDE.md](SETUP-GUIDE.md) | Detailed setup and configuration instructions |
+| [AKS-MONITOR-README.md](AKS-MONITOR-README.md) | Agent-specific documentation |
+| [USAGE-EXAMPLES.md](USAGE-EXAMPLES.md) | Example workflows and conversations |
+| [MCP-PACKAGES-REFERENCE.md](MCP-PACKAGES-REFERENCE.md) | MCP server npm packages reference |
+| [WORKFLOW-DIAGRAM.md](WORKFLOW-DIAGRAM.md) | Visual workflow diagrams |
+
+## 🏗️ How It Works
+
+```typescript
+import { CopilotClient, defineTool } from "@github/copilot-sdk";
+
+// 1. Create client and session with hybrid MCP servers
+const client = new CopilotClient();
+const session = await client.createSession({
+    model: "gpt-4o",
+    mcpServers: {
+        github: {
+            type: "http",
+            url: "https://api.githubcopilot.com/mcp/",  // GitHub-hosted
+        },
+        azure: {
+            type: "stdio",
+            command: "npx",
+            args: ["-y", "@microsoft/mcp-server-azure"],  // npm package
+        },
+        aks: {
+            type: "stdio",
+            command: "npx",
+            args: ["-y", "@azure/mcp-server-aks"],  // npm package
+        },
+    },
+    tools: [/* custom tools */],
+});
+
+// 2. Define custom tools for Azure/AKS operations
+const diagnoseCluster = defineTool("diagnose_aks_cluster", {
+    description: "Run diagnostics on AKS cluster",
+    handler: async ({ clusterName }) => {
+        // Diagnostic logic
+        return { issues: [...] };
+    },
+});
+
+// 3. Interactive conversation loop
+await session.sendAndWait({ prompt: userInput });
+```
+
+**Azure & AKS MCP Servers are auto-installed via npx** - no manual setup required!
+
+See [MCP-PACKAGES-REFERENCE.md](MCP-PACKAGES-REFERENCE.md) for detailed package information.
+
+## 🎯 What Gets Monitored
+
+| Category | Checks | Severity |
+|----------|--------|----------|
+| **Node Health** | Ready/NotReady status | High |
+| **Pod Status** | Running/Failed/Pending states | Medium-High |
+| **Services** | Endpoint health & availability | High |
+| **Resources** | CPU, Memory, Disk utilization | Medium |
+
+## 🐛 Example Issue Created
+
+When a problem is detected, the agent creates a GitHub issue like this:
+
+```markdown
+## AKS Cluster Issue Report
+
+**Cluster:** production-aks-cluster
+**Resource Group:** production-rg
+**Subscription:** xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+**Severity:** HIGH
+**Category:** node-health
+**Detected:** 2026-02-02T10:30:00.000Z
+
+### Description
+Found 1 node(s) in NotReady state. This may impact workload availability.
+
+### Details
+Total Nodes: 3, Ready: 2, NotReady: 1
+
+### Recommended Actions
+- Investigate node logs immediately
+- Check node conditions and events
+- Consider cordon and drain operations
+- Verify network connectivity
+
+---
+*This issue was automatically created by the AKS Monitor Agent*
+```
+
+**Labels**: `severity:high`, `category:node-health`, `aks-monitoring`
+
+## 🔧 Configuration
+
+### MCP Server Configuration
+
+The agent uses a hybrid approach for MCP servers:
+
+```typescript
+mcpServers: {
+    github: {
+        type: "http",
+        url: "https://api.githubcopilot.com/mcp/",  // ✅ HTTP-based (GitHub hosted)
+    },
+    azure: {
+        type: "stdio",
+        command: "npx",
+        args: ["-y", "@microsoft/mcp-server-azure"],  // ✅ npm package
+    },
+    aks: {
+        type: "stdio",
+        command: "npx",
+        args: ["-y", "@azure/mcp-server-aks"],  // ✅ npm package
+    },
+}
+```
+
+**Note**: Azure and AKS MCP servers are automatically installed via `npx` when the agent starts.
+
+### GitHub Authentication
+
+Create a `.env` file from the example:
+
+`` 🔧 Configuration
+
+### GitHub Authentication
+
+**No manual configuration needed!** The HTTP-based GitHub MCP server uses your existing GitHub Copilot authentication automatically.
+
+### Azure Credentials (Optional)
+
+You can provide Azure credentials interactively when the agent starts, or set them in a `.env` file:
+copilot-sdk-demo/
+├── aks-monitor-agent.ts          # 🎯 Main agent (418 lines)
+├── weather-assistant.ts           # Example: Weather chatbot
+├── index.ts                       # Example: Basic usage
+├── package.json                   # Dependencies & scripts
+└── README.md                      # This file
+
+Documentation/
+├── PROJECT-SUMMARY.md             # Complete project overview
+├── SETUP-GUIDE.md                 # Setup instructions
+├── AKS-MONITOR-README.md         # Agent documentation
+└── USAGE-EXAMPLES.md              # Usage examples
+```
+
+## 🛠️ Available Scripts
+
+```bash
+npm run aks-monitor    # Run AKS Monitor Agent
+npm run weather        # Run Weather Assistant example
+npm start              # Run basic example
+```
+
+## 🎓 Learning Resources
+
+- [GitHub Copilot SDK Documentation](https://github.com/github/copilot-sdk/blob/main/docs/getting-started.md)
+- [GitHub Blog: Build an agent into any app](https://github.blog/news-insights/company-news/build-an-agent-into-any-app-with-the-github-copilot-sdk/)
+- [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
+
+## 🔑 Key Features Demonstrated
+
+### 1. Custom Tool Definition
+```typescript
+const myTool = defineTool("tool_name", {
+    description: "What the tool does",
+    parameters: { /* JSON schema */ },
+    handler: async (args) => { /* implementation */ },
+});
+```
+
+### 2. MCP Server Integration
+```typescript
+mcpServers: {
+    serverName: {
+        type: "http",
+        url: "https://api.example.com/mcp/",
+    },
+}
+```
+
+### 3. Streaming Responses
+```typescript
+session.on("assistant.message_delta", (event) => {
+    process.stdout.write(event.data.deltaContent);
+});
+```
+
+### 4. State Management
+```typescript
+let authState = {
+    isAuthenticated: false,
+    tenantId: "",
+    subscriptionId: "",
+};
+```
+
+### 5. Interactive CLI
+```typescript
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+```
+
+## 🤝 Contributing
+
+This is a demonstration project. Key areas for enhancement:
+
+1. **Real MCP Server Integration**: Replace placeholder URLs with actual Azure/AKS MCP servers
+2. **Enhanced Diagnostics**: Add more cluster health checks
+3. **Persistent Storage**: Save diagnostic history
+4. **Multi-Cluster Support**: Monitor multiple clusters simultaneously
+5. **Scheduled Monitoring**: Add cron-style periodic checks
+6. **Slack/Teams Integration**: Send notifications beyond GitHub
+
+## 📝 License
+
+ISC
+
+## 🙏 Acknowledgments
+
+- Built with [GitHub Copilot SDK](https://github.com/github/copilot-sdk)
+- Powered by GPT-4o
+- Model Context Protocol (MCP) for server integration
+
+## 📧 Questions?
+
+Refer to the detailed documentation:
+- [PROJECT-SUMMARY.md](PROJECT-SUMMARY.md) - Architecture and components
+- [SETUP-GUIDE.md](SETUP-GUIDE.md) - Installation and configuration
+- [USAGE-EXAMPLES.md](USAGE-EXAMPLES.md) - Example workflows
+
+---
+
+**Ready to monitor your AKS clusters?** Run `npm run aks-monitor` to get started! 🚀
