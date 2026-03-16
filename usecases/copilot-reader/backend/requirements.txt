@@ -1,0 +1,9 @@
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+ebooklib>=0.18
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+github-copilot-sdk>=0.1.0
+pydantic>=2.0.0
+pyyaml>=6.0

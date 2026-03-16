@@ -42,6 +42,7 @@ npx tsx aks-monitor-agent.ts
 | **AKS Monitoring** | `./automation/copilot-sdk-runner.sh --usecase monitoring --lang nodejs` |
 | **Code Review Agent** | `./automation/copilot-sdk-runner.sh --usecase code-review --lang nodejs` |
 | **Security Analysis** | `./automation/copilot-sdk-runner.sh --usecase security-analysis --lang python` |
+| **Copilot Reader** | `cd usecases/copilot-reader && docker build -t reader-ide . && docker run -p 8000:8000 reader-ide` |
 | **List Use Cases** | `./automation/copilot-sdk-runner.sh --list` |
 | **Run Any Agent** | `./automation/copilot-sdk-runner.sh --usecase <name> --lang <language>` |
 | **Initialize Config** | `./automation/copilot-sdk-runner.sh --init` |
@@ -113,11 +114,17 @@ copilot-sdk-accelerator/
 │   │   ├── python/
 │   │   ├── go/
 │   │   └── dotnet/
-│   └── security-analysis/             # Security scanning
-│       ├── nodejs/
-│       ├── python/
-│       ├── go/
-│       └── dotnet/
+│   ├── security-analysis/             # Security scanning
+│   │   ├── nodejs/
+│   │   ├── python/
+│   │   ├── go/
+│   │   └── dotnet/
+│   └── copilot-reader/                # AI-powered EPUB reader web app
+│       ├── backend/                   # FastAPI server + Copilot SDK chat
+│       ├── frontend/                  # React + TypeScript VS Code-style UI
+│       ├── infra/                     # Azure Container Apps Bicep templates
+│       ├── Dockerfile                 # Multi-stage build
+│       └── README.md
 │
 ├── examples/                          # Getting started examples
 │   ├── README.md
@@ -233,6 +240,7 @@ See [circleci/README.md](circleci/README.md) for full documentation.
 | **[Monitoring](usecases/monitoring/)** | AKS cluster health monitoring, diagnostics, auto-issue creation | Node.js, Python, Go, .NET |
 | **[Code Review](usecases/code-review/)** | AI-powered code review with Copilot SDK | Node.js, Python, Go, .NET |
 | **[Security Analysis](usecases/security-analysis/)** | Automated security vulnerability scanning | Node.js, Python, Go, .NET |
+| **[Copilot Reader](usecases/copilot-reader/)** | VS Code-style EPUB reader with AI reading companion powered by Copilot SDK | Python (FastAPI), TypeScript (React) |
 
 ---
 

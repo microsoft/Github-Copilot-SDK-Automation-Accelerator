@@ -9,10 +9,11 @@ This directory contains use-case-specific Copilot SDK agents organized by domain
 | [monitoring/](monitoring/) | AKS cluster health monitoring, diagnostics, GitHub issue creation | Node.js |
 | [code-review/](code-review/) | AI-powered code review with custom analysis | Node.js |
 | [security-analysis/](security-analysis/) | Automated security vulnerability scanning | Node.js |
+| [copilot-reader/](copilot-reader/) | VS Code-style EPUB reader with AI reading companion (full-stack web app) | Python, TypeScript |
 
 ## Structure
 
-Each use case follows the same multi-language structure:
+Codebase structure for some of the usecases:
 
 ```
 <usecase>/
@@ -35,6 +36,27 @@ Each use case follows the same multi-language structure:
     ├── Program.cs
     └── README.md
 ```
+
+Codebase structure for Copilot Reader web application based usecase:
+
+```
+copilot-reader/
+├── README.md
+├── Dockerfile                # Multi-stage build (frontend + backend)
+├── backend/
+│   ├── main.py               # FastAPI server
+│   ├── epub_processor.py     # EPUB → chapter text extraction
+│   ├── copilot_chat.py       # Copilot SDK streaming chat
+│   ├── requirements.txt
+│   ├── agents/               # AI reading companion personas
+│   └── skills/               # Copilot skill prompts (/recap, /explain, etc.)
+├── frontend/
+│   ├── src/                  # React + TypeScript (VS Code-style UI)
+│   └── package.json
+├── data/                     # Processed book files (runtime)
+└── infra/                    # Azure Container Apps Bicep templates
+```
+
 
 ## Running a Use Case
 

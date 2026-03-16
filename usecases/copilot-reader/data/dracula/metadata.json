@@ -1,0 +1,215 @@
+{
+  "book_id": "dracula",
+  "title": "Dracula",
+  "authors": [
+    "Bram Stoker"
+  ],
+  "language": "en",
+  "description": null,
+  "publisher": null,
+  "date": "1995-10-01",
+  "subjects": [
+    "Horror tales",
+    "Epistolary fiction",
+    "Gothic fiction",
+    "Vampires -- Fiction",
+    "Dracula, Count (Fictitious character) -- Fiction",
+    "Transylvania (Romania) -- Fiction",
+    "Whitby (England) -- Fiction"
+  ],
+  "chapters": [
+    {
+      "filename": "01-d-r-a-c-u-l-a.txt",
+      "title": "D R A C U L A",
+      "order": 1,
+      "char_count": 1013
+    },
+    {
+      "filename": "02-contents.txt",
+      "title": "Contents",
+      "order": 2,
+      "char_count": 1027
+    },
+    {
+      "filename": "03-section-4.txt",
+      "title": "Section 4",
+      "order": 3,
+      "char_count": 456
+    },
+    {
+      "filename": "04-d-r-a-c-u-l-a.txt",
+      "title": "D R A C U L A",
+      "order": 4,
+      "char_count": 30626
+    },
+    {
+      "filename": "05-chapter-ii-jonathan-harkers-journalcontinued.txt",
+      "title": "CHAPTER II JONATHAN HARKER’S JOURNAL—continued",
+      "order": 5,
+      "char_count": 28464
+    },
+    {
+      "filename": "06-chapter-iii-jonathan-harkers-journalcontinued.txt",
+      "title": "CHAPTER III JONATHAN HARKER’S JOURNAL—continued",
+      "order": 6,
+      "char_count": 29773
+    },
+    {
+      "filename": "07-chapter-iv-jonathan-harkers-journalcontinued.txt",
+      "title": "CHAPTER IV JONATHAN HARKER’S JOURNAL—continued",
+      "order": 7,
+      "char_count": 30183
+    },
+    {
+      "filename": "08-chapter-v.txt",
+      "title": "CHAPTER V",
+      "order": 8,
+      "char_count": 18028
+    },
+    {
+      "filename": "09-chapter-vi-mina-murrays-journal.txt",
+      "title": "CHAPTER VI MINA MURRAY’S JOURNAL",
+      "order": 9,
+      "char_count": 29136
+    },
+    {
+      "filename": "10-chapter-vii-cutting-from-the-dailygraph-8-august.txt",
+      "title": "CHAPTER VII CUTTING FROM “THE DAILYGRAPH,” 8 AUGUST",
+      "order": 10,
+      "char_count": 29901
+    },
+    {
+      "filename": "11-chapter-viii-mina-murrays-journal.txt",
+      "title": "CHAPTER VIII MINA MURRAY’S JOURNAL",
+      "order": 11,
+      "char_count": 32602
+    },
+    {
+      "filename": "12-chapter-ix.txt",
+      "title": "CHAPTER IX",
+      "order": 12,
+      "char_count": 30142
+    },
+    {
+      "filename": "13-chapter-x.txt",
+      "title": "CHAPTER X",
+      "order": 13,
+      "char_count": 30735
+    },
+    {
+      "filename": "14-chapter-xi.txt",
+      "title": "CHAPTER XI",
+      "order": 14,
+      "char_count": 26927
+    },
+    {
+      "filename": "15-chapter-xii-dr-sewards-diary.txt",
+      "title": "CHAPTER XII DR. SEWARD’S DIARY",
+      "order": 15,
+      "char_count": 37877
+    },
+    {
+      "filename": "16-chapter-xiii-dr-sewards-diarycontinued.txt",
+      "title": "CHAPTER XIII DR. SEWARD’S DIARY—continued.",
+      "order": 16,
+      "char_count": 34113
+    },
+    {
+      "filename": "17-chapter-xiv-mina-harkers-journal.txt",
+      "title": "CHAPTER XIV MINA HARKER’S JOURNAL",
+      "order": 17,
+      "char_count": 32552
+    },
+    {
+      "filename": "18-chapter-xv-dr-sewards-diarycontinued.txt",
+      "title": "CHAPTER XV DR. SEWARD’S DIARY—continued.",
+      "order": 18,
+      "char_count": 29704
+    },
+    {
+      "filename": "19-chapter-xvi-dr-sewards-diarycontinued.txt",
+      "title": "CHAPTER XVI DR. SEWARD’S DIARY—continued",
+      "order": 19,
+      "char_count": 23883
+    },
+    {
+      "filename": "20-chapter-xvii-dr-sewards-diarycontinued.txt",
+      "title": "CHAPTER XVII DR. SEWARD’S DIARY—continued",
+      "order": 20,
+      "char_count": 29017
+    },
+    {
+      "filename": "21-chapter-xviii-dr-sewards-diary.txt",
+      "title": "CHAPTER XVIII DR. SEWARD’S DIARY",
+      "order": 21,
+      "char_count": 35886
+    },
+    {
+      "filename": "22-chapter-xix-jonathan-harkers-journal.txt",
+      "title": "CHAPTER XIX JONATHAN HARKER’S JOURNAL",
+      "order": 22,
+      "char_count": 29436
+    },
+    {
+      "filename": "23-chapter-xx-jonathan-harkers-journal.txt",
+      "title": "CHAPTER XX JONATHAN HARKER’S JOURNAL",
+      "order": 23,
+      "char_count": 31152
+    },
+    {
+      "filename": "24-chapter-xxi-dr-sewards-diary.txt",
+      "title": "CHAPTER XXI DR. SEWARD’S DIARY",
+      "order": 24,
+      "char_count": 32168
+    },
+    {
+      "filename": "25-chapter-xxii-jonathan-harkers-journal.txt",
+      "title": "CHAPTER XXII JONATHAN HARKER’S JOURNAL",
+      "order": 25,
+      "char_count": 28082
+    },
+    {
+      "filename": "26-chapter-xxiii-dr-sewards-diary.txt",
+      "title": "CHAPTER XXIII DR. SEWARD’S DIARY",
+      "order": 26,
+      "char_count": 29486
+    },
+    {
+      "filename": "27-chapter-xxiv-dr-sewards-phonograph-diary-spoken-by-van-helsing.txt",
+      "title": "CHAPTER XXIV DR. SEWARD’S PHONOGRAPH DIARY, SPOKEN BY VAN HELSING",
+      "order": 27,
+      "char_count": 32068
+    },
+    {
+      "filename": "28-chapter-xxv-dr-sewards-diary.txt",
+      "title": "CHAPTER XXV DR. SEWARD’S DIARY",
+      "order": 28,
+      "char_count": 32544
+    },
+    {
+      "filename": "29-chapter-xxvi-dr-sewards-diary.txt",
+      "title": "CHAPTER XXVI DR. SEWARD’S DIARY",
+      "order": 29,
+      "char_count": 37009
+    },
+    {
+      "filename": "30-chapter-xxvii-mina-harkers-journal.txt",
+      "title": "CHAPTER XXVII MINA HARKER’S JOURNAL",
+      "order": 30,
+      "char_count": 38822
+    },
+    {
+      "filename": "31-note.txt",
+      "title": "NOTE",
+      "order": 31,
+      "char_count": 3093
+    },
+    {
+      "filename": "32-the-full-project-gutenberg-license.txt",
+      "title": "THE FULL PROJECT GUTENBERG LICENSE",
+      "order": 32,
+      "char_count": 18185
+    }
+  ],
+  "processed_at": "2026-02-23T18:07:08.204474"
+}

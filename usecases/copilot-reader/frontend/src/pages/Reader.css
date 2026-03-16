@@ -1,0 +1,173 @@
+/* --- Reader Page — VS Code Layout --- */
+
+.reader-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #1e1e1e;
+  color: #cccccc;
+  overflow: hidden;
+}
+
+/* Title Bar */
+.reader-titlebar {
+  background: #3c3c3c;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  font-size: 13px;
+  -webkit-app-region: drag;
+  flex-shrink: 0;
+}
+
+.titlebar-back {
+  background: none;
+  border: none;
+  color: #cccccc;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  -webkit-app-region: no-drag;
+}
+
+.titlebar-back:hover {
+  background: #505050;
+}
+
+.titlebar-title {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.titlebar-author {
+  color: #858585;
+  font-size: 12px;
+}
+
+/* Main panels area */
+.reader-panels {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Resize handle */
+.resize-handle {
+  width: 4px;
+  background: #252526;
+  transition: background 0.15s;
+  cursor: col-resize;
+}
+
+.resize-handle:hover,
+.resize-handle[data-resize-handle-active] {
+  background: #007acc;
+}
+
+/* Sidebar panel */
+.panel-sidebar {
+  height: 100%;
+  background: #252526;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel-sidebar-header {
+  padding: 10px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: #bbbbbb;
+  text-transform: uppercase;
+  border-bottom: 1px solid #3c3c3c;
+  flex-shrink: 0;
+}
+
+/* Sidebar tab switcher */
+.sidebar-tabs {
+  display: flex;
+  border-bottom: 1px solid #3c3c3c;
+  flex-shrink: 0;
+  background: #252526;
+}
+
+.sidebar-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 0;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #858585;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.sidebar-tab:hover {
+  color: #cccccc;
+}
+
+.sidebar-tab.active {
+  color: #ffffff;
+  border-bottom-color: #007acc;
+}
+
+/* Status Bar */
+.reader-statusbar {
+  background: #007acc;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 20px;
+  font-size: 12px;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+/* Loading / Error */
+.reader-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #1e1e1e;
+  color: #858585;
+  font-size: 14px;
+}
+
+.reader-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #1e1e1e;
+  color: #f48771;
+  gap: 16px;
+}
+
+.reader-error button {
+  background: #007acc;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.reader-error button:hover {
+  background: #005a9e;
+}

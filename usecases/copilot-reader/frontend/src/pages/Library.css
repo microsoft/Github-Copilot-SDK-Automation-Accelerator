@@ -1,0 +1,322 @@
+/* --- Library Page Styles --- */
+
+.library-page {
+  min-height: 100vh;
+  background: #1e1e1e;
+  color: #cccccc;
+  padding: 0;
+}
+
+/* Header */
+.library-header {
+  background: #252526;
+  border-bottom: 1px solid #3c3c3c;
+  padding: 24px 40px;
+}
+
+.library-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #e0e0e0;
+}
+
+.library-header-left h1 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+  color: #ffffff;
+}
+
+.library-subtitle {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #858585;
+}
+
+/* Auth Section */
+.auth-section {
+  margin: 20px 40px 0;
+  padding: 16px 20px;
+  background: #252526;
+  border: 1px solid #3c3c3c;
+  border-radius: 8px;
+}
+
+.auth-section.auth-connected {
+  border-color: #2ea04366;
+  background: #1a2e1a;
+}
+
+.auth-checking {
+  margin: 0;
+  font-size: 13px;
+  color: #858585;
+}
+
+.auth-status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-icon-ok {
+  color: #3fb950;
+  flex-shrink: 0;
+}
+
+.auth-icon-key {
+  color: #d29922;
+  flex-shrink: 0;
+}
+
+.auth-label {
+  font-size: 14px;
+  color: #cccccc;
+}
+
+.auth-logout-btn {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid #3c3c3c;
+  color: #858585;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.auth-logout-btn:hover {
+  border-color: #be1100;
+  color: #f48771;
+}
+
+.auth-prompt-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.auth-input-row {
+  display: flex;
+  gap: 10px;
+}
+
+.auth-token-input {
+  flex: 1;
+  padding: 8px 12px;
+  background: #1e1e1e;
+  border: 1px solid #3c3c3c;
+  border-radius: 4px;
+  color: #cccccc;
+  font-size: 13px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.auth-token-input:focus {
+  border-color: #007acc;
+}
+
+.auth-token-input::placeholder {
+  color: #555;
+}
+
+.auth-submit-btn {
+  padding: 8px 20px;
+  background: #007acc;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  background: #0098ff;
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.auth-error {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #f48771;
+  font-size: 12px;
+}
+
+.auth-hint {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.auth-hint code {
+  background: #1e1e1e;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 11px;
+}
+
+.auth-hint a {
+  color: #4a9eff;
+  text-decoration: none;
+}
+
+.auth-hint a:hover {
+  text-decoration: underline;
+}
+
+/* Upload Zone */
+.upload-zone {
+  margin: 24px 40px;
+  padding: 40px;
+  border: 2px dashed #3c3c3c;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #858585;
+}
+
+.upload-zone:hover,
+.upload-zone.drag-over {
+  border-color: #007acc;
+  background: rgba(0, 122, 204, 0.08);
+  color: #007acc;
+}
+
+.upload-zone.uploading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.upload-zone p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Error */
+.library-error {
+  margin: 0 40px 16px;
+  padding: 10px 16px;
+  background: #5a1d1d;
+  border: 1px solid #be1100;
+  border-radius: 4px;
+  color: #f48771;
+  font-size: 13px;
+}
+
+/* Loading / Empty */
+.library-loading,
+.library-empty {
+  text-align: center;
+  padding: 80px 40px;
+  color: #858585;
+}
+
+.library-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Book Grid */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 0 40px 40px;
+}
+
+.book-card {
+  background: #252526;
+  border: 1px solid #3c3c3c;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.book-card:hover {
+  border-color: #007acc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.book-card-cover {
+  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a2e 100%);
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4a9eff;
+}
+
+.book-card-info {
+  padding: 16px;
+}
+
+.book-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin: 0 0 8px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.book-card-author,
+.book-card-chapters {
+  font-size: 12px;
+  color: #858585;
+  margin: 4px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.book-card-delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(30, 30, 30, 0.8);
+  border: none;
+  color: #858585;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.book-card:hover .book-card-delete {
+  opacity: 1;
+}
+
+.book-card-delete:hover {
+  color: #f48771;
+  background: rgba(90, 29, 29, 0.8);
+}
